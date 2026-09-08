@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ForDoctor Indica — Templates</title>
+<style>
+:root{--navy:#0B1F3A;--blue:#146EF5;--cyan:#21B6F3;--bg:#EEF3F8;--text:#1D2939;--muted:#667085;--line:#E4EAF2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,sans-serif;color:var(--text)}
+.wrap{max-width:1150px;margin:auto;padding:30px 18px 60px}.heroTop{background:linear-gradient(135deg,var(--navy),#174A86);color:#fff;border-radius:22px;padding:34px;margin-bottom:22px}
+.heroTop small{text-transform:uppercase;letter-spacing:.1em;opacity:.7}.heroTop h1{margin:8px 0;font-size:34px}.heroTop p{margin:0;opacity:.85}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 24px #0b1f3a0b}.full{grid-column:1/-1}
+.head{padding:21px 23px;border-bottom:1px solid var(--line)}.badge{font-size:11px;font-weight:800;color:var(--blue);background:#eaf2ff;padding:6px 9px;border-radius:99px}.head h2{margin:12px 0 5px;color:var(--navy);font-size:22px}.head p{margin:0;color:var(--muted);font-size:14px}
+.email{margin:20px;border:1px solid #dde4ec;border-radius:12px;overflow:hidden}.brand{background:var(--navy);color:#fff;font-size:22px;font-weight:800;padding:21px 25px}.brand span{color:var(--cyan)}
+.body{padding:30px 27px;background:linear-gradient(#f5f9ff,#fff)}.body h3{color:var(--navy);font-size:27px;line-height:1.15;margin:0 0 12px}.body p{line-height:1.55;color:#475467}.benefit{background:#f6f9ff;border:1px solid #dbe8fb;padding:16px;border-radius:10px;margin:18px 0}.cta{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:800;padding:14px 19px;border-radius:8px}
+.steps{padding:5px 27px 20px}.steps div{padding:10px 0;border-bottom:1px solid #edf0f4;font-size:14px}.foot{background:#f7f8fa;color:#7a8494;padding:17px 25px;font-size:11px;line-height:1.5}
+.code{margin:0 20px 20px;background:#101828;color:#e7edf4;border-radius:10px;padding:15px;font:12px/1.55 monospace;white-space:pre-wrap}
+.note{margin:20px;padding:16px 18px;background:#f3faff;border-left:4px solid var(--cyan);border-radius:8px;font-size:14px;line-height:1.5}
+.flow{padding:22px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}.node{padding:14px 16px;border:1px solid var(--line);border-radius:12px;min-width:145px}.node strong{display:block;color:var(--navy);margin-bottom:4px}.arrow{color:var(--blue);font-size:21px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--line)}th{background:#f8fafc;color:var(--navy)}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.heroTop h1{font-size:28px}}
+</style>
+</head>
+<body><div class="wrap">
+<section class="heroTop"><small>Kit de teste • Setembro 2026</small><h1>ForDoctor Indica</h1><p>Templates de comunicação e fluxo inicial para testar no Marketing Automation.</p></section>
+
+<div class="grid">
+<article class="card"><div class="head"><span class="badge">E-MAIL 01</span><h2>Cliente Promotor</h2><p>Abordagem direta para quem já demonstra boa percepção da ForDoctor.</p></div>
+<div class="email"><div class="brand">For<span>Doctor</span></div><div class="body"><h3>Tem um médico amigo que também merece uma contabilidade especializada?</h3><p>Indique alguém que você gostaria de ver contando com a ForDoctor e participe do nosso programa de indicação.</p><div class="benefit"><b>Seu benefício</b><br>{{beneficio_indicador}}</div><a class="cta" href="{{link_indicacao}}">INDICAR AGORA</a></div><div class="steps"><div>1. Clique em “Indicar agora”.</div><div>2. Compartilhe seu link com um médico.</div><div>3. Se a indicação cumprir as regras, o benefício é liberado.</div></div><div class="foot">ForDoctor • Contabilidade especializada para médicos<br>{{rodape_campanha}}</div></div>
+<div class="code">Assunto: {{nome_cliente}}, indique um médico e ganhe um benefício
+Preheader: Você pode ajudar um colega e ainda receber {{beneficio_indicador}}.</div></article>
+
+<article class="card"><div class="head"><span class="badge">E-MAIL 02</span><h2>Cliente Neutro</h2><p>Mais contexto sobre o valor do programa e menos pressão comercial.</p></div>
+<div class="email"><div class="brand">For<span>Doctor</span></div><div class="body"><h3>Você conhece algum médico que está começando a organizar a própria PJ?</h3><p>Talvez um colega esteja justamente procurando uma contabilidade que entenda a rotina e as particularidades de quem atua na medicina.</p><div class="benefit"><b>Ao indicar</b><br>Você recebe <b>{{beneficio_indicador}}</b> se a indicação atender às condições do programa.</div><a class="cta" href="{{link_indicacao}}">QUERO INDICAR UM MÉDICO</a></div><div class="steps"><div>✓ Você compartilha sua indicação.</div><div>✓ A ForDoctor entra em contato com o indicado.</div><div>✓ Se a indicação for válida e gerar contratação, o benefício segue as regras.</div></div><div class="foot">ForDoctor • Contabilidade especializada para médicos<br>{{rodape_campanha}}</div></div>
+<div class="code">Assunto: Conhece um médico que precisa de uma contabilidade especializada?
+Preheader: Indique um colega de forma simples e participe do ForDoctor Indica.</div></article>
+
+<article class="card"><div class="head"><span class="badge">E-MAIL 03</span><h2>Lembrete</h2><p>Para quem recebeu o convite, mas ainda não iniciou a indicação.</p></div>
+<div class="email"><div class="brand">For<span>Doctor</span></div><div class="body"><h3>Ficou alguém em mente?</h3><p>Se você se lembrou de algum médico que poderia se beneficiar da ForDoctor, sua indicação pode começar em poucos cliques.</p><div class="benefit"><b>{{beneficio_indicador}}</b><br>Use seu link individual e compartilhe com quem fizer sentido.</div><a class="cta" href="{{link_indicacao}}">FAZER UMA INDICAÇÃO</a></div><div class="foot">Se você já realizou uma indicação, desconsidere este lembrete.<br>{{rodape_campanha}}</div></div>
+<div class="code">Assunto: Ainda dá tempo de indicar um médico 👨‍⚕️
+Preheader: Seu link de indicação continua disponível.</div></article>
+
+<article class="card"><div class="head"><span class="badge">WHATSAPP</span><h2>Mensagens para teste</h2><p>Versões curtas para validar abordagem e comportamento do link.</p></div>
+<div class="note"><b>Promotor</b><br><br>{{nome_cliente}}, você tem algum médico amigo que gostaria de indicar para a ForDoctor? 👨‍⚕️<br><br>Pelo ForDoctor Indica, você pode receber <b>{{beneficio_indicador}}</b> se a indicação atender às regras da campanha.<br><br>👉 {{link_indicacao}}</div>
+<div class="note"><b>Neutro</b><br><br>{{nome_cliente}}, estamos com o ForDoctor Indica: você indica um médico e, se a indicação for válida e gerar contratação, recebe <b>{{beneficio_indicador}}</b>.<br><br>É só compartilhar seu link:<br>{{link_indicacao}}</div>
+<div class="note"><b>Confirmação</b><br><br>Recebemos sua indicação, {{nome_cliente}}! 💙<br><br>Agora nossa equipe vai verificar os dados e seguir com o contato.</div></article>
+
+<article class="card full"><div class="head"><span class="badge">AUTOMAÇÃO</span><h2>Fluxo inicial no Marketing Automation</h2><p>Estrutura para testar a jornada sem criar uma sequência cega.</p></div>
+<div class="flow"><div class="node"><strong>Entrada</strong>Base elegível</div><span class="arrow">→</span><div class="node"><strong>Filtro</strong>15 dias OK?</div><span class="arrow">→</span><div class="node"><strong>Segmentação</strong>Promotor / Neutro</div><span class="arrow">→</span><div class="node"><strong>Envio</strong>E-mail</div><span class="arrow">→</span><div class="node"><strong>Comportamento</strong>Clicou?</div><span class="arrow">→</span><div class="node"><strong>Jornada</strong>Indicou?</div></div>
+<div class="note"><b>Regra principal:</b> cruzar o histórico de e-mail, WhatsApp e push. A mesma pessoa não deve receber estímulos em canais diferentes dentro da janela de 15 dias. Se houver indicação, retirar da sequência promocional e mover para acompanhamento.</div>
+<div class="code">ENTRADA → [JANELA 15 DIAS OK?]
+NÃO → aguarda próxima janela
+SIM → [PROMOTOR / NEUTRO] → [E-MAIL]
+        ↓
+     [CLICOU?]
+      ├─ SIM → jornada de indicação
+      └─ NÃO → aguarda → lembrete se elegível
+                    ↓
+               nova janela
+
+Campanha: ForDoctor Indica | Setembro 2026</div></article>
+
+<article class="card full"><div class="head"><span class="badge">VARIÁVEIS</span><h2>Campos para deixar o template dinâmico</h2></div>
+<table><tr><th>Variável</th><th>Uso</th></tr>
+<tr><td><code>{{nome_cliente}}</code></td><td>Personalização.</td></tr>
+<tr><td><code>{{beneficio_indicador}}</code></td><td>Permite alterar crédito/desconto sem refazer a peça.</td></tr>
+<tr><td><code>{{beneficio_indicado}}</code></td><td>Benefício do médico indicado, quando aplicável.</td></tr>
+<tr><td><code>{{link_indicacao}}</code></td><td>Link individual que identifica o indicador.</td></tr>
+<tr><td><code>{{prazo_campanha}}</code></td><td>Período da campanha.</td></tr>
+<tr><td><code>{{rodape_campanha}}</code></td><td>Regras aprovadas para o rodapé.</td></tr></table>
+<div class="note"><b>Atenção:</b> deixei os benefícios como variáveis porque o valor/formato final ainda precisa ser aprovado. Assim você já consegue testar o fluxo sem travar a comunicação em uma condição que pode mudar.</div>
+</article>
+</div></div></body></html>
