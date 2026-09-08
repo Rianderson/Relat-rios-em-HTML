@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForDoctor Indica — Reunião de Alinhamento</title>
+<style>
+:root{
+  --bg:#07111f; --panel:#0d1b2d; --panel2:#10233a; --text:#f4f7fb;
+  --muted:#9eb0c5; --line:rgba(255,255,255,.09);
+  --accent:#55d6be; --accent2:#7c8cff; --danger:#ff7b8a; --warn:#ffd166;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+.deck{max-width:1180px;margin:auto;padding:42px 24px 80px}
+.slide{min-height:760px;padding:58px;border:1px solid var(--line);border-radius:30px;background:
+radial-gradient(circle at 85% 10%,rgba(85,214,190,.12),transparent 28%),
+linear-gradient(145deg,var(--panel),#081522);margin-bottom:28px;position:relative;overflow:hidden}
+.slide:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 80%);pointer-events:none}
+.content{position:relative;z-index:1}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:18px}
+h1{font-size:64px;line-height:1.02;margin:0 0 22px;letter-spacing:-.04em}
+h2{font-size:42px;line-height:1.08;margin:0 0 28px;letter-spacing:-.03em}
+h3{margin:0 0 10px;font-size:19px}
+p{color:var(--muted);font-size:17px}
+.hero p{max-width:690px;font-size:20px}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.045);padding:9px 13px;border-radius:999px;color:#dce6f2;font-size:13px;font-weight:700}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:20px;padding:22px}
+.card strong{display:block;font-size:18px;margin-bottom:7px}.muted{color:var(--muted)}
+.status{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:7px;margin-bottom:14px}
+.red{color:#ffb1bb;background:rgba(255,123,138,.11)}.yellow{color:#ffe3a0;background:rgba(255,209,102,.1)}.green{color:#a8f3e6;background:rgba(85,214,190,.1)}
+.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:30px}.node{flex:1;min-width:125px;background:var(--panel2);border:1px solid var(--line);border-radius:17px;padding:18px;text-align:center;font-weight:800}.arrow{display:flex;align-items:center;color:var(--accent);font-size:24px}
+table{width:100%;border-collapse:collapse;margin-top:10px}th,td{text-align:left;padding:15px 13px;border-bottom:1px solid var(--line)}th{color:#c8d4e2;font-size:12px;text-transform:uppercase;letter-spacing:.08em}td{color:#dce5ef}
+.check{display:flex;gap:11px;align-items:flex-start;margin:10px 0;color:#dbe5ef}.check span:first-child{color:var(--accent);font-weight:900}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:35px}.step{padding:18px;border-top:2px solid var(--accent);background:rgba(255,255,255,.04);border-radius:12px}.date{font-weight:900;color:var(--accent);font-size:13px}.step b{display:block;margin:8px 0}
+.quote{font-size:27px;line-height:1.25;max-width:850px;border-left:3px solid var(--accent);padding-left:22px;color:#eef5fb;margin:35px 0}
+.footer{position:absolute;bottom:25px;left:58px;right:58px;display:flex;justify-content:space-between;color:#71869e;font-size:12px}
+.num{font-variant-numeric:tabular-nums}
+@media(max-width:800px){.slide{padding:35px;min-height:auto}h1{font-size:43px}h2{font-size:32px}.g2,.g3,.g4,.timeline{grid-template-columns:1fr}.flow{display:grid}.arrow{justify-content:center;transform:rotate(90deg)}.footer{position:static;margin-top:30px}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<section class="slide hero">
+<div class="content">
+<div class="kicker">ForDoctor · Indica · Setembro 2026</div>
+<span class="badge">Reunião de alinhamento • 03/09</span>
+<h1 style="margin-top:28px">Do programa de indicação para um <span style="color:var(--accent)">canal previsível</span> de aquisição.</h1>
+<p>Hoje precisamos transformar o cronograma em decisões, responsáveis e um teste ponta a ponta que prove que a jornada funciona antes da ativação.</p>
+<div class="quote">“Não estamos apenas criando uma campanha. Estamos desenhando uma operação de indicação rastreável, do cliente até a venda.”</div>
+</div>
+<div class="footer"><span>ForDoctor Indica</span><span class="num">01 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">01 · Onde estamos</div><h2>O que já existe vs. o que precisa ser fechado</h2>
+<div class="grid g2">
+<div class="card"><span class="status green">Já existe</span>
+<div class="check"><span>✓</span><div>Gatilho após avaliação positiva</div></div>
+<div class="check"><span>✓</span><div>Programa ForDoctor Indica funcionando</div></div>
+<div class="check"><span>✓</span><div>Jornada de indicação dentro do App</div></div>
+<div class="check"><span>✓</span><div>Link com identificação do usuário via hash</div></div>
+</div>
+<div class="card"><span class="status red">Precisamos fechar</span>
+<div class="check"><span>!</span><div>Mecânica dos benefícios</div></div>
+<div class="check"><span>!</span><div>Critério de indicação válida e duplicidade</div></div>
+<div class="check"><span>!</span><div>Integração / rastreamento no CRM</div></div>
+<div class="check"><span>!</span><div>Escopo mínimo da campanha</div></div>
+</div>
+</div>
+<p style="margin-top:28px">O cronograma coloca 01–02/09 como a etapa de revisão de regras, benefícios, mensagem, base e comunicação do App.</p>
+</div><div class="footer"><span>Diagnóstico executivo</span><span>02 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">02 · App</div><h2>Temos uma jornada. Agora precisamos fazê-la trabalhar para o negócio.</h2>
+<div class="flow">
+<div class="node">⭐ App</div><div class="arrow">→</div><div class="node">ForDoctor Indica</div><div class="arrow">→</div><div class="node">Indicar</div><div class="arrow">→</div><div class="node">Link individual</div><div class="arrow">→</div><div class="node">Indicado</div>
+</div>
+<div class="grid g3" style="margin-top:28px">
+<div class="card"><span class="status green">Funcional</span><strong>Entrada</strong><span class="muted">Ícone de estrela na navegação inferior e página própria do Indica.</span></div>
+<div class="card"><span class="status green">Funcional</span><strong>Compartilhamento</strong><span class="muted">Compartilhamento nativo, copiar link e acesso pelo navegador em alguns dispositivos.</span></div>
+<div class="card"><span class="status yellow">Validar</span><strong>Dados</strong><span class="muted">Confirmar se o hash, origem e conversão chegam ao CRM de forma rastreável.</span></div>
+</div>
+<div class="quote" style="font-size:23px">Hipótese: aproveitar a estrutura existente do App pode ser mais eficiente do que desenvolver uma nova jornada.</div>
+</div><div class="footer"><span>Levantamento com TI</span><span>03 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">03 · Decisões de hoje</div><h2>Se sairmos daqui com estas respostas, destravamos o projeto.</h2>
+<table>
+<tr><th>Tema</th><th>Decisão</th><th>Status</th></tr>
+<tr><td>Indicador</td><td>R$ 200 = crédito ou desconto?</td><td>🔴</td></tr>
+<tr><td>Indicado</td><td>R$ 500 ou certificado digital de R$ 199?</td><td>🔴</td></tr>
+<tr><td>Regras</td><td>Validade, serviços elegíveis e cumulatividade</td><td>🔴</td></tr>
+<tr><td>Indicação válida</td><td>Quais dados e condições definem validade?</td><td>🔴</td></tr>
+<tr><td>Duplicidade</td><td>O que acontece quando o contato já existe?</td><td>🔴</td></tr>
+<tr><td>WhatsApp</td><td>Conversa integrada ou link individual?</td><td>🔴</td></tr>
+<tr><td>Operação</td><td>Responsável pelo lead + SLA de primeiro contato</td><td>🟡</td></tr>
+</table>
+</div><div class="footer"><span>Mesa de decisões</span><span>04 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">04 · Experiência</div><h2>Menos fricção para quem indica. Mais contexto para quem vende.</h2>
+<div class="grid g2">
+<div class="card">
+<span class="status green">Experiência do cliente</span>
+<h3>Uma ação: indicar agora</h3>
+<div class="flow" style="margin-top:18px">
+<div class="node">Clica</div><div class="arrow">→</div><div class="node">Nome</div><div class="arrow">→</div><div class="node">WhatsApp</div>
+</div>
+<p>O cronograma prevê nome, telefone/WhatsApp e autorização para contato. E-mail pode ser opcional.</p>
+</div>
+<div class="card">
+<span class="status green">Experiência comercial</span>
+<h3>Indicação chega contextualizada</h3>
+<div class="check"><span>✓</span><div>Indicador identificado</div></div>
+<div class="check"><span>✓</span><div>Origem e campanha registradas</div></div>
+<div class="check"><span>✓</span><div>Duplicidade verificada</div></div>
+<div class="check"><span>✓</span><div>Responsável acionado dentro do SLA</div></div>
+</div>
+</div>
+<div class="quote" style="font-size:23px">Princípio: o cliente não deveria preencher um formulário longo para fazer uma indicação.</div>
+</div><div class="footer"><span>Jornada proposta</span><span>05 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">05 · CRM</div><h2>O que precisamos conseguir enxergar.</h2>
+<div class="grid g2">
+<div class="card"><span class="status green">Registro mínimo</span>
+<table>
+<tr><td>Fonte</td><td>Indicação</td></tr>
+<tr><td>Canal</td><td>Cliente / Embaixadores</td></tr>
+<tr><td>Meio</td><td>App / WhatsApp / Instagram etc.</td></tr>
+<tr><td>Campanha</td><td>ForDoctor Indica | Setembro 2026</td></tr>
+<tr><td>Gatilho</td><td>App / avaliação / base / atendimento</td></tr>
+</table></div>
+<div class="card"><span class="status yellow">Jornada</span>
+<table>
+<tr><td>Vínculo</td><td>Indicador ↔ Indicado</td></tr>
+<tr><td>Status</td><td>Recebida → Válida → Contato → Oportunidade → Venda</td></tr>
+<tr><td>Benefício</td><td>Aguardando → Liberado → Utilizado</td></tr>
+</table></div>
+</div>
+<p style="margin-top:26px"><strong style="color:#fff">Pergunta para TI/Sales Ops:</strong> “Hoje conseguimos registrar e acompanhar tudo isso automaticamente, ou quais pontos exigem desenvolvimento?”</p>
+</div><div class="footer"><span>Rastreabilidade</span><span>06 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">06 · Teste de prontidão</div><h2>Antes de lançar, uma indicação precisa funcionar do início ao fim.</h2>
+<div class="flow">
+<div class="node">Cliente</div><div class="arrow">→</div><div class="node">Indica</div><div class="arrow">→</div><div class="node">CRM</div><div class="arrow">→</div><div class="node">Comercial</div><div class="arrow">→</div><div class="node">Venda</div>
+</div>
+<div class="grid g3" style="margin-top:28px">
+<div class="card"><strong>01 · Captura</strong><span class="muted">Indicação enviada e indicador preservado.</span></div>
+<div class="card"><strong>02 · CRM</strong><span class="muted">Duplicidade, origem, vínculo e campanha conferidos.</span></div>
+<div class="card"><strong>03 · Comercial</strong><span class="muted">Lead recebido, SLA cumprido e status atualizado.</span></div>
+</div>
+<div class="quote" style="font-size:23px">Critério de aprovação: uma indicação real de teste concluída ponta a ponta, sem perda de informação.</div>
+</div><div class="footer"><span>Marco de qualidade</span><span>07 / 08</span></div>
+</section>
+
+<section class="slide">
+<div class="content">
+<div class="kicker">07 · Próximos passos</div><h2>Decidir → construir → testar → ativar.</h2>
+<div class="timeline">
+<div class="step"><div class="date">03/09</div><b>Decisões</b><span class="muted">Regras, App e requisitos CRM.</span></div>
+<div class="step"><div class="date">04/09</div><b>MVP</b><span class="muted">Escopo mínimo e peças para teste.</span></div>
+<div class="step"><div class="date">05/09</div><b>Teste E2E</b><span class="muted">Uma indicação completa.</span></div>
+<div class="step"><div class="date">06/09</div><b>Correções</b><span class="muted">Ajustar e decidir ativação.</span></div>
+<div class="step"><div class="date">ATIVAÇÃO</div><b>Campanha</b><span class="muted">Somente após jornada aprovada.</span></div>
+</div>
+<div class="card" style="margin-top:34px;background:rgba(85,214,190,.07);border-color:rgba(85,214,190,.22)">
+<h3>Fechamento da reunião</h3>
+<p style="margin:5px 0 0;color:#dceeea">“Se hoje fecharmos as regras, validarmos a jornada do App e definirmos os requisitos do CRM, existe algum outro bloqueio para fazermos o primeiro teste ponta a ponta?”</p>
+</div>
+</div><div class="footer"><span>ForDoctor Indica · Plano de execução</span><span>08 / 08</span></div>
+</section>
+
+</div>
+</body>
+</html>
