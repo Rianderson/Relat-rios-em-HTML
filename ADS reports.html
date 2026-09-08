@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ForDoctor | Análise da Campanha Público Engajado 90D</title>
+<style>
+:root{
+  --bg:#07131f; --panel:#0d2030; --panel2:#10283b; --line:rgba(255,255,255,.09);
+  --text:#f4f8fb; --muted:#9eb1c0; --blue:#2f8cff; --cyan:#4ed6ff;
+  --green:#45d4a0; --amber:#ffbc5e; --red:#ff6b75;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{overflow-x:hidden}
+.deck{min-height:100vh}
+.hero{min-height:100vh;padding:54px 7vw 46px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:999px;filter:blur(70px);opacity:.26}
+.hero:before{width:420px;height:420px;background:#126bba;right:-80px;top:-90px}
+.hero:after{width:350px;height:350px;background:#0f8d9f;left:-150px;bottom:-130px}
+.kicker{letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);font-weight:700;font-size:.78rem}
+h1{font-size:clamp(3rem,7vw,7.2rem);line-height:.95;max-width:1100px;margin:18px 0 20px;letter-spacing:-.06em}
+h1 span{color:var(--cyan)}
+.subtitle{max-width:760px;color:var(--muted);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.6}
+.meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.pill{padding:10px 14px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;color:#c7d4dd;font-size:.9rem}
+.section{padding:84px 7vw;max-width:1500px;margin:auto}
+.section.dark{background:linear-gradient(180deg,#081825,#07131f)}
+.section-title{font-size:clamp(2rem,4vw,4rem);line-height:1;margin:0 0 16px;letter-spacing:-.045em}
+.section-lead{color:var(--muted);font-size:1.12rem;max-width:760px;line-height:1.65;margin-bottom:36px}
+.grid{display:grid;gap:18px}
+.kpis{grid-template-columns:repeat(4,1fr)}
+.card{background:linear-gradient(145deg,rgba(18,47,69,.92),rgba(11,28,43,.92));border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 18px 50px rgba(0,0,0,.16)}
+.card .label{color:var(--muted);font-size:.84rem;text-transform:uppercase;letter-spacing:.09em}
+.card .value{font-size:clamp(2rem,3vw,3.4rem);font-weight:800;letter-spacing:-.05em;margin-top:10px}
+.card .note{font-size:.9rem;color:#bfd0dc;margin-top:10px}
+.card.highlight{background:linear-gradient(145deg,#0f4b77,#0b2e4d);border-color:rgba(78,214,255,.28)}
+.twocol{grid-template-columns:1.05fr .95fr;align-items:stretch}
+.insight{font-size:1.35rem;line-height:1.55;color:#d9e5ec}
+.insight strong{color:var(--cyan)}
+.chart{height:340px;display:flex;align-items:flex-end;gap:28px;padding:35px 20px 10px;border-bottom:1px solid var(--line)}
+.barwrap{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:10px}
+.bar{width:100%;max-width:105px;border-radius:18px 18px 5px 5px;background:linear-gradient(180deg,var(--cyan),var(--blue));position:relative;min-height:8px}
+.bar.alt{background:linear-gradient(180deg,#63d7b0,#168e6b)}
+.bar em{position:absolute;top:-29px;left:50%;transform:translateX(-50%);font-style:normal;font-weight:800;white-space:nowrap}
+.barlabel{font-size:.84rem;color:var(--muted);text-align:center}
+.metric-row{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.metric-row:last-child{border-bottom:0}
+.metric-row b{font-size:1.06rem}
+.tag{font-size:.78rem;padding:5px 9px;border-radius:999px;background:rgba(78,214,255,.1);color:var(--cyan);border:1px solid rgba(78,214,255,.15)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:center;margin-top:28px}
+.flow .step{min-height:145px;padding:22px;border-radius:20px;background:var(--panel);border:1px solid var(--line);position:relative}
+.flow .step:not(:last-child):after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);font-size:1.5rem;color:var(--cyan)}
+.num{font-size:2rem;font-weight:800;color:var(--cyan)}
+.step h3{margin:9px 0;font-size:1rem}.step p{color:var(--muted);font-size:.9rem;line-height:1.5;margin:0}
+.callout{padding:32px;border-radius:26px;background:linear-gradient(135deg,#103b5d,#0c2538);border:1px solid rgba(78,214,255,.18)}
+.callout h3{font-size:1.6rem;margin:0 0 10px}.callout p{color:#c3d3de;line-height:1.65;margin:0}
+.actions{grid-template-columns:repeat(3,1fr)}
+.action{padding:28px;border-radius:24px;background:var(--panel);border:1px solid var(--line)}
+.action .n{color:var(--cyan);font-size:.85rem;font-weight:800;letter-spacing:.1em}.action h3{font-size:1.4rem;margin:10px 0}.action p{color:var(--muted);line-height:1.6}
+.footer{padding:45px 7vw 70px;color:#7f94a4;border-top:1px solid var(--line);font-size:.9rem}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.twocol{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow .step:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-24px}.section{padding:64px 6vw}.hero{padding:44px 6vw}}
+@media(max-width:560px){.kpis{grid-template-columns:1fr}.card{padding:22px}.hero{min-height:92vh}}
+@media print{body{background:white;color:#111}.hero,.section{break-after:page;min-height:auto;padding:45px}.card,.action,.step{box-shadow:none} .hero{background:#07131f;color:white}}
+</style>
+</head>
+<body>
+<main class="deck">
+
+<section class="hero">
+  <div class="kicker">ForDoctor • Meta Ads • Análise de campanha</div>
+  <h1>O que o teste de <span>público engajado</span> está nos dizendo?</h1>
+  <p class="subtitle">Leitura da campanha <b>Teste – [VT][LEAD][Público-Engajado][90D]</b>, com foco em eficiência de mídia, comportamento do tráfego e próximos passos para transformar atenção em oportunidade comercial.</p>
+  <div class="meta">
+    <div class="pill">🎯 Objetivo: geração de leads</div>
+    <div class="pill">👥 Audiência: engajados • 90 dias</div>
+    <div class="pill">💰 Orçamento de referência: R$ 50/dia</div>
+    <div class="pill">📅 Dados apresentados no print de 25/08/2026</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="kicker">01 • Visão executiva</div>
+  <h2 class="section-title">A campanha está gerando tráfego. O próximo desafio é a conversão.</h2>
+  <p class="section-lead">O teste apresenta uma audiência já familiarizada com a marca. Neste recorte, a campanha acumulou volume relevante de impressões e cliques, mas o ponto central da análise agora é entender o caminho completo até lead, oportunidade e venda.</p>
+
+  <div class="grid kpis">
+    <div class="card highlight"><div class="label">Impressões</div><div class="value">6.720</div><div class="note">Volume de entrega no recorte atual</div></div>
+    <div class="card"><div class="label">Cliques no link</div><div class="value">43</div><div class="note">CTR de link: 0,64%</div></div>
+    <div class="card"><div class="label">Cliques totais</div><div class="value">89</div><div class="note">CTR total: 1,32%</div></div>
+    <div class="card"><div class="label">CPM</div><div class="value">R$ 53,71</div><div class="note">Custo por mil impressões</div></div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="grid twocol">
+    <div class="card">
+      <div class="kicker">02 • Leitura dos números</div>
+      <h2 class="section-title" style="font-size:2.7rem">Clique existe.<br>O custo ainda precisa ser controlado.</h2>
+      <p class="insight">Com <strong>43 cliques no link</strong> e <strong>CPC de R$ 8,39</strong>, a campanha está conseguindo levar pessoas para a próxima etapa. Porém, para uma audiência quente, precisamos validar se esse custo está gerando <strong>leads e oportunidades de qualidade</strong>.</p>
+      <div class="metric-row"><span>CTR de link</span><b>0,64%</b></div>
+      <div class="metric-row"><span>CTR (todos)</span><b>1,32%</b></div>
+      <div class="metric-row"><span>CPC por clique no link</span><b>R$ 8,39</b></div>
+      <div class="metric-row"><span>CPC (todos)</span><b>R$ 4,06</b></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Visualização rápida • Índice de volume</div>
+      <div class="chart">
+        <div class="barwrap"><div class="bar" style="height:100%"><em>6.720</em></div><div class="barlabel">Impressões</div></div>
+        <div class="barwrap"><div class="bar alt" style="height:64%"><em>89</em></div><div class="barlabel">Cliques totais</div></div>
+        <div class="barwrap"><div class="bar" style="height:48%"><em>43</em></div><div class="barlabel">Cliques no link</div></div>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem;line-height:1.55;margin:18px 0 0">Leitura proporcional para facilitar a visualização. As escalas representam métricas diferentes e não devem ser comparadas como conversão direta.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="kicker">03 • O que muda na nossa estratégia</div>
+  <h2 class="section-title">Não precisamos adicionar mais conjuntos agora.</h2>
+  <p class="section-lead">A melhor decisão, neste momento, é manter o teste controlado. Criar novos conjuntos pulverizaria orçamento e dificultaria a leitura. Primeiro precisamos entender o desempenho da estrutura atual.</p>
+
+  <div class="grid actions">
+    <div class="action"><div class="n">DECISÃO 01</div><h3>Manter a campanha ativa</h3><p>Preservar a entrega e permitir que o algoritmo acumule mais dados, sem otimizações precipitadas.</p></div>
+    <div class="action"><div class="n">DECISÃO 02</div><h3>Não adicionar novos conjuntos</h3><p>Evitar dividir a verba de R$ 50/dia entre muitas audiências antes de termos uma amostra suficiente.</p></div>
+    <div class="action"><div class="n">DECISÃO 03</div><h3>Acompanhar qualidade</h3><p>O KPI de verdade passa a ser a qualidade dos leads e o avanço para oportunidade — não apenas o CPL.</p></div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="kicker">04 • O funil que precisamos medir</div>
+  <h2 class="section-title">O Ads só é o começo.</h2>
+  <p class="section-lead">Com o tracking e a distribuição para a Rafaela estruturados, agora conseguimos acompanhar o caminho completo da mídia até o resultado comercial.</p>
+
+  <div class="flow">
+    <div class="step"><div class="num">01</div><h3>Impressão</h3><p>Entrega para audiência engajada.</p></div>
+    <div class="step"><div class="num">02</div><h3>Clique</h3><p>Interesse suficiente para avançar.</p></div>
+    <div class="step"><div class="num">03</div><h3>Lead</h3><p>Conversão identificada e registrada.</p></div>
+    <div class="step"><div class="num">04</div><h3>Oportunidade</h3><p>Lead com perfil e interesse comercial.</p></div>
+    <div class="step"><div class="num">05</div><h3>Venda</h3><p>Resultado final e retorno do investimento.</p></div>
+  </div>
+
+  <div class="callout" style="margin-top:30px">
+    <h3>A pergunta deixa de ser “quanto custa o lead?”</h3>
+    <p>e passa a ser: <strong>“quanto estamos investindo para gerar uma oportunidade e, depois, uma venda?”</strong> É isso que permitirá decidir com segurança se a campanha deve receber mais verba, ser otimizada ou ser pausada.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="kicker">05 • Próximos passos</div>
+  <h2 class="section-title">Plano de acompanhamento</h2>
+  <div class="grid actions">
+    <div class="action"><div class="n">AGORA</div><h3>Deixar acumular dados</h3><p>Sem adicionar conjuntos e sem alterar a estrutura de forma impulsiva.</p></div>
+    <div class="action"><div class="n">EM PARALELO</div><h3>Validar os leads</h3><p>Com a Rafaela: contato, resposta, perfil, oportunidade e motivo de perda.</p></div>
+    <div class="action"><div class="n">PRÓXIMA DECISÃO</div><h3>Revisar com base no funil</h3><p>Comparar CPL, qualidade e avanço comercial antes de redistribuir orçamento.</p></div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="kicker">Conclusão</div>
+  <h2 class="section-title">Estamos na fase de aprender,<br>não de multiplicar complexidade.</h2>
+  <p class="section-lead">A campanha já fornece sinais suficientes para continuar a observação. O melhor próximo passo é consolidar a leitura do público engajado e conectar o resultado de mídia ao CRM. Quando soubermos quais cliques viram oportunidades, teremos base real para escalar.</p>
+  <div class="meta">
+    <div class="pill">✓ manter ativa</div>
+    <div class="pill">✓ não adicionar conjuntos</div>
+    <div class="pill">✓ acompanhar qualidade</div>
+    <div class="pill">✓ decidir com base em oportunidade e venda</div>
+  </div>
+</section>
+
+<footer class="footer">
+ForDoctor • Análise de campanha Meta Ads • Métricas transcritas dos prints enviados em 25/08/2026. Recomenda-se complementar a próxima revisão com leads, oportunidades e vendas originadas no CRM.
+</footer>
+</main>
+</body>
+</html>
