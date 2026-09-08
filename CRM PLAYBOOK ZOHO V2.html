@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForDoctor — Playbook de CRM</title>
+<style>
+:root{
+  --navy:#07152f; --blue:#1463ff; --blue2:#3b82f6; --ink:#172033;
+  --muted:#667085; --line:#e6eaf0; --bg:#f6f8fc; --white:#fff;
+  --green:#12b76a; --orange:#f79009; --red:#f04438; --purple:#7a5af8;
+  --shadow:0 18px 55px rgba(7,21,47,.10); --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{color:inherit;text-decoration:none}
+.topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(230,234,240,.8);z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.brand{font-weight:900;letter-spacing:-.05em;color:var(--navy);font-size:20px}.brand span{color:var(--blue)}
+.topbar .mini{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.wrap{max-width:1180px;margin:auto;padding:96px 24px 80px}
+.hero{min-height:calc(100vh - 96px);display:grid;grid-template-columns:1.35fr .65fr;gap:40px;align-items:center}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+h1{font-size:clamp(48px,7vw,84px);line-height:.98;letter-spacing:-.065em;margin:0 0 26px;color:var(--navy)}
+h2{font-size:clamp(30px,4vw,52px);line-height:1.02;letter-spacing:-.045em;color:var(--navy);margin:0 0 18px}
+h3{margin:0 0 8px;color:var(--navy);font-size:19px}
+p{color:var(--muted);margin:0 0 14px}.lead{font-size:21px;max-width:760px}
+.quote{border-left:4px solid var(--blue);background:#fff;padding:18px 20px;border-radius:0 16px 16px 0;box-shadow:0 10px 30px rgba(7,21,47,.06);font-weight:800;color:var(--navy);margin-top:26px}
+.hero-card{background:linear-gradient(150deg,var(--navy),#102c5d);color:#fff;border-radius:30px;padding:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero-card:after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;background:rgba(20,99,255,.30);right:-90px;top:-80px}
+.hero-card .label{color:#9fc0ff;font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:.12em}
+.hero-card .big{font-size:42px;line-height:1.05;font-weight:900;letter-spacing:-.04em;margin:18px 0 28px;position:relative;z-index:1}
+.hero-card .stat{border-top:1px solid rgba(255,255,255,.15);padding-top:15px;margin-top:15px;position:relative;z-index:1}.hero-card .stat b{display:block;font-size:25px}
+.section{padding:90px 0;border-top:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 8px 28px rgba(7,21,47,.045)}
+.card .num{font-size:12px;font-weight:900;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.card strong{color:var(--navy)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4ff;color:#155eef;font-size:11px;font-weight:900;margin:4px 4px 0 0}
+.pill.green{background:#eafaf2;color:#087443}.pill.orange{background:#fff5e8;color:#b54708}.pill.red{background:#fff0ef;color:#b42318}.pill.purple{background:#f2efff;color:#6941c6}
+.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:28px}
+.node{flex:1;min-width:145px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;font-weight:900;color:var(--navy);box-shadow:0 7px 22px rgba(7,21,47,.05)}
+.arrow{display:flex;align-items:center;color:var(--blue);font-weight:900;font-size:22px}
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 28px rgba(7,21,47,.045)}
+th,td{text-align:left;padding:15px 16px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
+th{background:#f8fafc;color:var(--navy);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+tr:last-child td{border-bottom:0}
+.check{display:flex;gap:12px;margin:11px 0}.check i{font-style:normal;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#eafaf2;color:#087443;font-weight:900;flex:none}
+.callout{padding:20px;border-radius:18px;background:#eef4ff;border:1px solid #d9e5ff;margin-top:20px}.callout b{color:var(--navy)}
+.rule{background:var(--navy);color:#fff;border-radius:22px;padding:28px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-line;box-shadow:var(--shadow)}
+.rule b{color:#8eb6ff}
+.timeline{display:grid;grid-template-columns:80px 1fr;gap:0 18px}.timeline .time{font-weight:900;color:var(--blue);padding-top:18px}.timeline .event{border-left:2px solid #dce6f8;padding:18px 0 22px 22px}
+.kpi{font-size:34px;font-weight:900;letter-spacing:-.04em;color:var(--navy)}
+.small{font-size:12px;color:var(--muted)}
+.footer{padding:40px 0 10px;color:#98a2b3;font-size:12px;display:flex;justify-content:space-between}
+.navdots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:15;display:grid;gap:8px}.navdots a{width:9px;height:9px;background:#cbd5e1;border-radius:50%;display:block}.navdots a:hover{background:var(--blue)}
+@media(max-width:850px){.hero,.grid2,.grid{grid-template-columns:1fr}.hero{min-height:auto;padding:55px 0 20px}.navdots{display:none}.wrap{padding-left:18px;padding-right:18px}.section{padding:65px 0}.topbar{padding:0 18px}.topbar .mini{display:none}.flow{display:block}.arrow{justify-content:center;padding:5px}.node{margin:6px 0}}
+@media print{.topbar,.navdots{display:none}.wrap{padding-top:20px}.section{page-break-before:always}.hero{min-height:100vh}}
+</style>
+
+<style>
+/* V2 additions */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:#f2f4f7;color:#344054;font-size:11px;font-weight:900;margin:4px 5px 0 0}
+.badge.blue{background:#eef4ff;color:#155eef}.badge.green{background:#eafaf2;color:#087443}.badge.orange{background:#fff5e8;color:#b54708}.badge.red{background:#fff0ef;color:#b42318}
+.matrix td:first-child{font-weight:800;color:var(--navy)}
+.note{font-size:13px;color:var(--muted)}
+.code{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:18px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;white-space:pre-line}
+.section-intro{font-size:17px;max-width:900px;margin-bottom:24px}
+@media print{.card,.hero-card,table,.rule{break-inside:avoid}.section{padding:55px 0}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand">for<span>doctor</span></div><div class="mini">Playbook de CRM • V2 operacional • 2026</div></header>
+<nav class="navdots">
+<a href="#01"></a><a href="#02"></a><a href="#03"></a><a href="#04"></a><a href="#05"></a><a href="#06"></a><a href="#07"></a><a href="#08"></a><a href="#09"></a><a href="#10"></a><a href="#11"></a><a href="#12"></a><a href="#13a"></a><a href="#13b"></a><a href="#13c"></a><a href="#13d"></a><a href="#13e"></a><a href="#13f"></a><a href="#13g"></a><a href="#13h"></a><a href="#13i"></a><a href="#13j"></a>
+</nav>
+
+<main class="wrap">
+<section class="hero" id="01">
+  <div>
+    <div class="kicker">ForDoctor • CRM + Revenue + Marketing</div>
+    <h1>CRM não é cadastro.<br>É o sistema operacional da receita.</h1>
+    <p class="lead">Um playbook consolidado para transformar aquisição, relacionamento, pré-vendas, vendas, follow-up, reativação e dados em uma única operação comercial.</p>
+    <div class="quote">Princípio central: nenhum lead ativo deve desaparecer do funil por falta de contexto ou de próxima ação.</div>
+  </div>
+  <div class="hero-card">
+    <div class="label">A lógica ForDoctor</div>
+    <div class="big">DADO → ESTADO → AÇÃO → MÉTRICA</div>
+    <div class="stat"><b>01</b>Todo registro precisa ter um estado claro.</div>
+    <div class="stat"><b>02</b>Todo estado precisa produzir uma ação.</div>
+    <div class="stat"><b>03</b>Toda ação precisa gerar informação.</div>
+  </div>
+</section>
+
+<section class="section" id="02">
+  <div class="kicker">01 • Visão de operação</div><h2>O CRM precisa responder 5 perguntas o tempo todo.</h2>
+  <div class="grid">
+    <div class="card"><div class="num">01</div><h3>Quem é?</h3><p>Identidade, contato, origem e contexto conhecido.</p></div>
+    <div class="card"><div class="num">02</div><h3>De onde veio?</h3><p>Origem, canal, tipo de aquisição e campanha.</p></div>
+    <div class="card"><div class="num">03</div><h3>Onde está?</h3><p>Estado atual da jornada, sem misturar estágio com atividade.</p></div>
+    <div class="card"><div class="num">04</div><h3>O que sabemos?</h3><p>Momento, necessidade, timing, sinais e histórico.</p></div>
+    <div class="card"><div class="num">05</div><h3>Qual é o próximo passo?</h3><p>Uma ação futura, uma saída objetiva ou uma reativação.</p></div>
+  </div>
+  <div class="callout"><b>Regra de gestão:</b> “sem próxima ação” deve ser tratado como exceção operacional, não como estado normal.</div>
+</section>
+
+<section class="section" id="03">
+  <div class="kicker">02 • Arquitetura de aquisição</div><h2>Não misture origem, dinâmica e campanha.</h2>
+  <p>Uma única coluna de “origem” não explica a jornada. A estrutura recomendada separa quatro dimensões.</p>
+  <table>
+    <tr><th>Dimensão</th><th>Exemplos</th><th>Responde</th></tr>
+    <tr><td><strong>Origem</strong></td><td>Google, Facebook/Meta, Instagram, Referral</td><td>De onde veio?</td></tr>
+    <tr><td><strong>Dinâmica</strong></td><td>Inbound, Outbound, Referral</td><td>Quem iniciou o movimento?</td></tr>
+    <tr><td><strong>Tipo</strong></td><td>Pago, Orgânico</td><td>Houve investimento em mídia?</td></tr>
+    <tr><td><strong>Campanha</strong></td><td>Mês do Médico, Black, ação específica</td><td>Qual iniciativa estava por trás?</td></tr>
+  </table>
+  <div class="grid2" style="margin-top:18px">
+    <div class="card"><h3>Inbound</h3><p>O médico vem até a ForDoctor: conteúdo, SEO, anúncios para LP, formulários, eventos e outras entradas espontâneas.</p><span class="pill">Demanda capturada</span></div>
+    <div class="card"><h3>Outbound</h3><p>A ForDoctor vai até o médico: SDR, WhatsApp, ligação, e-mail ativo, bases e reativação.</p><span class="pill purple">Demanda criada</span></div>
+  </div>
+</section>
+
+<section class="section" id="04">
+  <div class="kicker">03 • Atribuição</div><h2>Preservar a história é mais importante que “adivinhar” a origem.</h2>
+  <div class="flow">
+    <div class="node">Meta Ads<br><span class="small">First Touch</span></div><div class="arrow">→</div>
+    <div class="node">Site / LP</div><div class="arrow">→</div>
+    <div class="node">Google / conteúdo<br><span class="small">Latest Touch</span></div><div class="arrow">→</div>
+    <div class="node">Conversão</div>
+  </div>
+  <div class="grid2" style="margin-top:18px">
+    <div class="card"><h3>First Touch</h3><p>Primeira origem conhecida. Responde quem iniciou a jornada.</p></div>
+    <div class="card"><h3>Latest Touch</h3><p>Última origem conhecida antes da conversão. Ajuda a entender o que esteve associado ao avanço.</p></div>
+  </div>
+  <div class="callout"><b>Regra:</b> uma nova origem durante a jornada não deve apagar cegamente a primeira. O histórico precisa sobreviver à navegação.</div>
+</section>
+
+<section class="section" id="05">
+  <div class="kicker">04 • Modelo de dados</div><h2>Uma pessoa, uma identidade. Vários ciclos comerciais.</h2>
+  <div class="flow">
+    <div class="node"><strong>Lead</strong><br><span class="small">Novo prospect</span></div><div class="arrow">→</div>
+    <div class="node"><strong>Contact</strong><br><span class="small">Pessoa identificada</span></div><div class="arrow">→</div>
+    <div class="node"><strong>Deal</strong><br><span class="small">Oportunidade</span></div>
+  </div>
+  <div class="grid2" style="margin-top:18px">
+    <div class="card"><h3>Conversão</h3><p>Quando existe contexto comercial e reunião agendada, o Lead é convertido, o Contact é criado/associado e um Deal nasce.</p><span class="pill green">Novo ciclo</span></div>
+    <div class="card"><h3>Reativação</h3><p>Uma pessoa que já existe não volta a ser um Lead duplicado. Trabalha-se o Contact e, quando surge nova reunião, cria-se um novo Deal.</p><span class="pill orange">Novo ciclo mensurável</span></div>
+  </div>
+  <div class="rule" style="margin-top:20px"><b>FAZER</b>
+Trabalhar o Contact → preservar histórico → criar novo Deal quando houver nova reunião.
+
+<b>NÃO FAZER</b>
+Criar Lead duplicado → apagar histórico → reutilizar Deal perdido como se fosse o mesmo ciclo.</div>
+</section>
+
+<section class="section" id="06">
+  <div class="kicker">05 • Blueprint de Pré-Vendas</div><h2>A qualificação acontece ao longo da jornada — não toda na entrada.</h2>
+  <div class="grid">
+    <div class="card"><div class="num">01</div><h3>Novo Lead</h3><p>Receber e identificar. Garantir dados mínimos e origem.</p><span class="pill">Entrada</span></div>
+    <div class="card"><div class="num">02</div><h3>Em abordagem</h3><p>Executar tentativas, registrar canal e resultado.</p><span class="pill orange">Contato</span></div>
+    <div class="card"><div class="num">03</div><h3>Em conversa / qualificação</h3><p>Entender momento, necessidade, timing e intenção.</p><span class="pill purple">Contexto</span></div>
+    <div class="card"><div class="num">04</div><h3>Conversão / oportunidade</h3><p>Reunião agendada + contexto mínimo suficiente.</p><span class="pill green">Handoff</span></div>
+    <div class="card"><div class="num">05</div><h3>Desqualificado</h3><p>Critério objetivo + motivo obrigatório + histórico preservado.</p><span class="pill red">Saída</span></div>
+    <div class="card"><div class="num">06</div><h3>Reativação</h3><p>Sem timing agora, mas existe motivo/data para voltar.</p><span class="pill orange">Recuperação</span></div>
+  </div>
+  <div class="callout"><b>Princípio:</b> não exigir na entrada aquilo que só pode ser descoberto durante uma conversa. Cada campo obrigatório precisa ter finalidade operacional ou analítica.</div>
+</section>
+
+<section class="section" id="07">
+  <div class="kicker">06 • Cadência comercial</div><h2>Cadência não é uma lista de tarefas. É proteção do funil.</h2>
+  <div class="grid2">
+    <div class="card"><div class="kpi">AÇÃO</div><p>O CRM sempre sabe qual tentativa vem a seguir.</p></div>
+    <div class="card"><div class="kpi">DADO</div><p>Cada tentativa registra canal e resultado.</p></div>
+    <div class="card"><div class="kpi">AVANÇO</div><p>Resposta, conversa, reunião ou outro sinal muda o estado.</p></div>
+    <div class="card"><div class="kpi">SAÍDA</div><p>Sem contato, desqualificação, conversão ou reativação encerram o ciclo ativo.</p></div>
+  </div>
+  <div class="rule" style="margin-top:22px"><b>REGRA DE OURO</b>
+
+SE o Lead está ativo
+E não existe condição de saída
+ENTÃO deve existir uma próxima ação futura.
+
+Tarefa aberta ≠ cadência parada
+Tarefa atrasada ≠ cadência parada
+Resposta/conversão = avaliar saída ou avanço</div>
+</section>
+
+<section class="section" id="08">
+  <div class="kicker">07 • Follow-up</div><h2>Tentativa mínima antes de desistir.</h2>
+  <p>O lead não deve ser movido para “sem resposta” porque uma única abordagem não funcionou.</p>
+  <table>
+    <tr><th>Regra</th><th>Comportamento esperado</th></tr>
+    <tr><td><strong>Tentativas mínimas</strong></td><td>Definir quantidade mínima por etapa/cadência antes da saída por falta de resposta.</td></tr>
+    <tr><td><strong>Multicanal</strong></td><td>Alternar WhatsApp/mensagem, ligação e e-mail quando houver dados e fizer sentido.</td></tr>
+    <tr><td><strong>Resultado obrigatório</strong></td><td>Cada tentativa registra resultado; “tarefa concluída” não basta.</td></tr>
+    <tr><td><strong>Saída antecipada</strong></td><td>Se respondeu, converteu ou recusou claramente, a sequência mínima deixa de ser necessária.</td></tr>
+  </table>
+  <div class="flow">
+    <div class="node">Tentativa 1<br><span class="small">WhatsApp</span></div><div class="arrow">→</div>
+    <div class="node">Tentativa 2<br><span class="small">Ligação</span></div><div class="arrow">→</div>
+    <div class="node">Tentativa 3<br><span class="small">WhatsApp</span></div><div class="arrow">→</div>
+    <div class="node">Tentativa 4<br><span class="small">E-mail</span></div>
+  </div>
+</section>
+
+<section class="section" id="09">
+  <div class="kicker">08 • Qualificação e handoff</div><h2>Vendas não deve precisar reiniciar a descoberta.</h2>
+  <p>Antes do handoff, Pré-Vendas deve entregar contexto suficiente para uma abordagem comercial relevante.</p>
+  <div class="grid">
+    <div class="card"><h3>Quem?</h3><p>Lead, origem e contexto cadastral.</p></div>
+    <div class="card"><h3>Momento?</h3><p>Já se formou? Quando inicia atuação profissional?</p></div>
+    <div class="card"><h3>Plano?</h3><p>Residência, plantões, clínica ou outro caminho.</p></div>
+    <div class="card"><h3>Necessidade?</h3><p>Problema ou oportunidade comercial identificada.</p></div>
+    <div class="card"><h3>Timing?</h3><p>Quando a contratação faz sentido e por quê.</p></div>
+    <div class="card"><h3>Intenção?</h3><p>Evidência concreta de proximidade ou interesse.</p></div>
+  </div>
+  <div class="callout"><b>Critério de handoff:</b> “reunião agendada” é o gatilho de oportunidade, mas a qualidade da passagem depende do contexto mínimo registrado.</div>
+</section>
+
+<section class="section" id="10">
+  <div class="kicker">09 • Dados de contexto</div><h2>Enriquecer para saber quando agir.</h2>
+  <table>
+    <tr><th>Campo</th><th>Quando coletar</th><th>Uso</th></tr>
+    <tr><td><strong>Já se formou?</strong></td><td>Entrada / conversa</td><td>Momento profissional</td></tr>
+    <tr><td><strong>Previsão de início profissional</strong></td><td>Qualificação</td><td>Proximidade da necessidade</td></tr>
+    <tr><td><strong>Plano pós-formação</strong></td><td>Qualificação</td><td>Residência, plantões, clínica etc.</td></tr>
+    <tr><td><strong>Necessidade identificada</strong></td><td>Qualificação</td><td>Problema/oportunidade</td></tr>
+    <tr><td><strong>Timing de contratação</strong></td><td>Qualificação</td><td>Urgência/prioridade</td></tr>
+    <tr><td><strong>Sinal de intenção</strong></td><td>Qualificação</td><td>Evidência de interesse</td></tr>
+    <tr><td><strong>Último sinal relevante</strong></td><td>Sempre que houver</td><td>Último evento que altera a leitura</td></tr>
+    <tr><td><strong>Próxima ação / data</strong></td><td>Sempre que não encerrar</td><td>Impedir lead sem próximo passo</td></tr>
+    <tr><td><strong>Data de reativação</strong></td><td>Quando sair da fila ativa</td><td>Retorno planejado</td></tr>
+  </table>
+</section>
+
+<section class="section" id="11">
+  <div class="kicker">10 • Reativação</div><h2>Perdido não significa esquecido.</h2>
+  <div class="grid2">
+    <div class="card"><h3>Quando reativar?</h3><p>Quando existe um motivo claro para voltar: novo timing, mudança de momento, campanha, sinal de interesse ou hipótese comercial relevante.</p></div>
+    <div class="card"><h3>Como reativar?</h3><p>Trabalhar o Contact com Activities/Cadence. Não criar uma pessoa duplicada.</p></div>
+  </div>
+  <div class="timeline" style="margin-top:24px">
+    <div class="time">01</div><div class="event"><h3>Deal anterior</h3><p>Permanece <strong>Closed Lost</strong> com motivo de perda.</p></div>
+    <div class="time">02</div><div class="event"><h3>Contact em reativação</h3><p>Nova abordagem registra contexto, motivo e sinal.</p></div>
+    <div class="time">03</div><div class="event"><h3>Nova reunião</h3><p>Ao agendar, nasce um novo Deal ligado ao mesmo Contact.</p></div>
+    <div class="time">04</div><div class="event"><h3>Novo ciclo</h3><p>Permite medir recuperação sem misturar ciclos comerciais.</p></div>
+  </div>
+</section>
+
+<section class="section" id="12">
+  <div class="kicker">11 • Governança e Sales Ops</div><h2>Qualquer nova regra precisa passar por este filtro.</h2>
+  <div class="grid">
+    <div class="card"><div class="num">01</div><h3>Entidade</h3><p>Qual entidade é dona da informação?</p></div>
+    <div class="card"><div class="num">02</div><h3>Estado</h3><p>Qual estado habilita a mudança?</p></div>
+    <div class="card"><div class="num">03</div><h3>Gatilho</h3><p>Qual é o evento objetivo?</p></div>
+    <div class="card"><div class="num">04</div><h3>Ação</h3><p>O que o usuário faz e o que o CRM automatiza?</p></div>
+    <div class="card"><div class="num">05</div><h3>Owner</h3><p>Quem executa e quem é accountable?</p></div>
+    <div class="card"><div class="num">06</div><h3>Métrica</h3><p>Qual campo/evento será a fonte oficial?</p></div>
+  </div>
+  <div class="callout"><b>Governança:</b> Pré-Vendas e Vendas executam o processo; Sales Ops/Gestão governa regras, campos, automações, qualidade de dados e indicadores; Marketing participa na aquisição, nutrição, enriquecimento e reativação conforme o desenho da jornada.</div>
+</section>
+
+<section class="section">
+  <div class="kicker">12 • KPIs</div><h2>O indicador só existe quando o evento tem fonte oficial.</h2>
+  <table>
+    <tr><th>KPI</th><th>Evento real</th><th>Fonte / regra</th></tr>
+    <tr><td>Leads recebidos</td><td>Entrada na pré-venda</td><td>Lead</td></tr>
+    <tr><td>Leads qualificados</td><td>Qualificação concluída</td><td>Critério explícito</td></tr>
+    <tr><td>Oportunidades criadas</td><td>Reunião agendada</td><td>Deal nasce nesse momento</td></tr>
+    <tr><td>Reuniões agendadas</td><td>Reunião marcada</td><td>Campo/evento oficial no CRM</td></tr>
+    <tr><td>Reuniões realizadas</td><td>Reunião aconteceu</td><td>Não confundir com Deal criado</td></tr>
+    <tr><td>No-show</td><td>Reunião não aconteceu</td><td>Status + motivo</td></tr>
+    <tr><td>Propostas</td><td>Proposta apresentada</td><td>Estágio/evento oficial</td></tr>
+    <tr><td>Perdas</td><td>Ciclo encerrado sem venda</td><td>Closed Lost + motivo</td></tr>
+    <tr><td>Contatos em reativação</td><td>Entrada em recuperação</td><td>Contact + Cadence/Activity</td></tr>
+    <tr><td>Vendas recuperadas</td><td>Novo Deal ganho</td><td>Deal Won + Contact original</td></tr>
+  </table>
+</section>
+
+<section class="section">
+  <div class="kicker">13 • Dashboard executivo</div><h2>O que a gestão deveria conseguir enxergar em minutos.</h2>
+  <div class="grid">
+    <div class="card"><div class="kpi">AÇÃO</div><h3>Leads sem próxima ação</h3><p>Quantos leads ativos estão descobertos pela operação?</p></div>
+    <div class="card"><div class="kpi">SLA</div><h3>Tempo até primeira abordagem</h3><p>Onde estamos perdendo velocidade?</p></div>
+    <div class="card"><div class="kpi">CONTATO</div><h3>Tentativas → resposta</h3><p>Quais canais e cadências geram contato?</p></div>
+    <div class="card"><div class="kpi">AVANÇO</div><h3>Qualificação → reunião</h3><p>O que realmente faz o lead progredir?</p></div>
+    <div class="card"><div class="kpi">CONVERSÃO</div><h3>Reunião → venda</h3><p>Onde a oportunidade perde força?</p></div>
+    <div class="card"><div class="kpi">RECUPERAÇÃO</div><h3>Reativação → venda</h3><p>Quanto valor estamos recuperando?</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="kicker">14 • Roadmap de implementação</div><h2>O playbook vira configuração em seis frentes.</h2>
+  <div class="grid">
+    <div class="card"><div class="num">V2</div><h3>Conversão de Lead</h3><p>Campos, owners, obrigatoriedades e automações.</p></div>
+    <div class="card"><div class="num">V3</div><h3>Activities e reuniões</h3><p>Agendada, realizada, cancelada, no-show e follow-up.</p></div>
+    <div class="card"><div class="num">V4</div><h3>Cadences e reativação</h3><p>Entradas, saídas, tentativas, intervalos e priorização.</p></div>
+    <div class="card"><div class="num">V5</div><h3>Blueprint e validações</h3><p>Estados, transições, bloqueios e exceções.</p></div>
+    <div class="card"><div class="num">V6</div><h3>Dados e dashboards</h3><p>Fonte única, funil, produtividade, SLA e auditoria.</p></div>
+    <div class="card"><div class="num">CONTÍNUO</div><h3>Governança</h3><p>Revisar regras com base em dados reais da operação.</p></div>
+  </div>
+</section>
+
+<section class="section" id="13a">
+  <div class="kicker">15 • Governança de dados</div>
+  <h2>O CRM precisa ter dono, regra e fonte oficial.</h2>
+  <p class="section-intro">A operação não deve depender de interpretações individuais. Cada informação crítica precisa ter definição, responsável, momento de preenchimento e uso.</p>
+  <table class="matrix">
+    <tr><th>Objeto</th><th>Dono operacional</th><th>Regra</th><th>Fonte oficial</th></tr>
+    <tr><td>Lead</td><td>Pré-Vendas</td><td>Registrar entrada, origem e primeira ação.</td><td>CRM / Lead</td></tr>
+    <tr><td>Contact</td><td>Sales Ops / Comercial</td><td>Uma pessoa, uma identidade; histórico preservado.</td><td>CRM / Contact</td></tr>
+    <tr><td>Deal</td><td>Vendas</td><td>Representa um ciclo comercial real.</td><td>CRM / Deal</td></tr>
+    <tr><td>Origem</td><td>Marketing + Sales Ops</td><td>Não sobrescrever First Touch sem regra.</td><td>CRM + UTMs</td></tr>
+    <tr><td>Atividade</td><td>Usuário executor</td><td>Registrar resultado, não apenas conclusão.</td><td>Activities</td></tr>
+    <tr><td>Motivo de perda</td><td>Vendas</td><td>Obrigatório no encerramento do Deal.</td><td>Deal / Closed Lost</td></tr>
+  </table>
+  <div class="callout"><b>Regra de governança:</b> mudança de campo, etapa, automação ou regra comercial deve ter objetivo, owner, gatilho, impacto esperado e critério de validação.</div>
+</section>
+
+<section class="section" id="13b">
+  <div class="kicker">16 • Blueprint operacional</div>
+  <h2>O estágio define o estado. A tarefa define a ação.</h2>
+  <p class="section-intro">Evitar que o pipeline vire uma lista de atividades. O estágio responde “onde está”; a Activity/Cadence responde “o que fazer agora”.</p>
+  <table class="matrix">
+    <tr><th>Estado</th><th>Entrada</th><th>Obrigatório</th><th>Saída</th></tr>
+    <tr><td>Novo Lead</td><td>Lead recebido</td><td>Origem + owner + próxima ação</td><td>Abordagem / desqualificação</td></tr>
+    <tr><td>Em abordagem</td><td>Primeira tentativa</td><td>Canal + resultado + próxima tentativa</td><td>Conversa / sem resposta</td></tr>
+    <tr><td>Em conversa</td><td>Resposta obtida</td><td>Momento + necessidade + intenção</td><td>Qualificado / desqualificado / reativação</td></tr>
+    <tr><td>Qualificado</td><td>Critério atendido</td><td>Contexto mínimo + reunião</td><td>Deal / perda</td></tr>
+    <tr><td>Oportunidade</td><td>Reunião agendada</td><td>Deal + data + owner</td><td>Realizada / no-show / cancelada</td></tr>
+    <tr><td>Proposta</td><td>Proposta apresentada</td><td>Valor + data + próxima ação</td><td>Won / Lost</td></tr>
+    <tr><td>Closed Lost</td><td>Ciclo encerrado</td><td>Motivo + submotivo + possibilidade de retorno</td><td>Reativação futura</td></tr>
+  </table>
+</section>
+
+<section class="section" id="13c">
+  <div class="kicker">17 • SLA e disciplina de execução</div>
+  <h2>Velocidade é parte da qualidade do CRM.</h2>
+  <div class="grid">
+    <div class="card"><div class="num">SLA 01</div><h3>Primeira abordagem</h3><p>Definir e monitorar um limite operacional entre entrada do lead e primeira tentativa.</p><span class="badge blue">Medir por origem</span></div>
+    <div class="card"><div class="num">SLA 02</div><h3>Tarefa aberta</h3><p>Tarefa vencida gera sinal de atenção; não pode virar “estado permanente” do lead.</p><span class="badge orange">Alerta</span></div>
+    <div class="card"><div class="num">SLA 03</div><h3>Etapa parada</h3><p>Lead ou Deal sem avanço além do prazo definido deve gerar revisão, nova ação ou saída.</p><span class="badge red">Exceção</span></div>
+    <div class="card"><div class="num">SLA 04</div><h3>Handoff</h3><p>Quando uma reunião é agendada, o contexto deve estar disponível para Vendas antes da abordagem.</p><span class="badge green">Continuidade</span></div>
+  </div>
+  <div class="code" style="margin-top:22px"><b>POLÍTICA DE EXCEÇÃO</b>
+
+Se houver lead ativo + sem próxima ação → sinalizar.
+Se houver tarefa vencida → notificar owner.
+Se houver etapa parada além do limite → revisar.
+Se houver resposta positiva → interromper cadência e avançar.
+Se houver recusa clara → registrar motivo e encerrar/reativar conforme regra.</div>
+</section>
+
+<section class="section" id="13d">
+  <div class="kicker">18 • Cadências ForDoctor</div>
+  <h2>Uma cadência por hipótese comercial.</h2>
+  <table class="matrix">
+    <tr><th>Cadência</th><th>Entrada</th><th>Estratégia</th><th>Saída</th></tr>
+    <tr><td>Inbound novo</td><td>Lead recém-chegado</td><td>Contato rápido + contexto + tentativa multicanal.</td><td>Conversa, reunião, desqualificação ou reativação.</td></tr>
+    <tr><td>Sem resposta</td><td>Não respondeu</td><td>Alternar canais e horários; cada tentativa registra resultado.</td><td>Resposta ou encerramento por ausência.</td></tr>
+    <tr><td>Reunião agendada</td><td>Deal criado</td><td>Confirmação, lembrete e preparação.</td><td>Realizada, cancelada ou no-show.</td></tr>
+    <tr><td>No-show</td><td>Reunião não ocorreu</td><td>Recuperação rápida + nova tentativa de agenda.</td><td>Nova reunião ou perda.</td></tr>
+    <tr><td>Reativação</td><td>Contact sem timing</td><td>Retomar por motivo e sinal; não duplicar pessoa.</td><td>Novo Deal ou novo ciclo de nutrição.</td></tr>
+  </table>
+  <div class="callout"><b>Importante:</b> a quantidade exata de tentativas e intervalos deve ser configurada e validada pela operação; o playbook define a lógica, não presume um número universal.</div>
+</section>
+
+<section class="section" id="13e">
+  <div class="kicker">19 • Marketing → Pré-Vendas → Vendas</div>
+  <h2>O handoff é uma passagem de contexto, não apenas de nome.</h2>
+  <div class="flow">
+    <div class="node">Marketing<br><span class="small">Atrair + nutrir + enriquecer</span></div><div class="arrow">→</div>
+    <div class="node">Pré-Vendas<br><span class="small">Abordar + qualificar</span></div><div class="arrow">→</div>
+    <div class="node">Vendas<br><span class="small">Diagnosticar + converter</span></div>
+  </div>
+  <div class="grid2" style="margin-top:20px">
+    <div class="card"><h3>Marketing entrega</h3><p>Origem, campanha, interação relevante, sinais de intenção, histórico de nutrição e contexto conhecido.</p></div>
+    <div class="card"><h3>Pré-Vendas entrega</h3><p>Momento profissional, necessidade, timing, intenção, resumo da conversa e motivo da reunião.</p></div>
+    <div class="card"><h3>Vendas devolve</h3><p>Resultado da reunião, objeções, motivo de perda, potencial de retorno e informações úteis para Marketing.</p></div>
+    <div class="card"><h3>Marketing reaproveita</h3><p>Aprendizados para segmentação, campanhas, conteúdo, nutrição e reativação.</p></div>
+  </div>
+</section>
+
+<section class="section" id="13f">
+  <div class="kicker">20 • Lead Score e sinais</div>
+  <h2>Score é prioridade. Não substitui qualificação humana.</h2>
+  <div class="grid">
+    <div class="card"><h3>Perfil</h3><p>Momento profissional e aderência ao público prioritário.</p><span class="badge blue">Fit</span></div>
+    <div class="card"><h3>Comportamento</h3><p>Interações relevantes, respostas, páginas, campanhas e outros sinais disponíveis.</p><span class="badge purple">Intent</span></div>
+    <div class="card"><h3>Timing</h3><p>Proximidade do momento em que a necessidade comercial tende a surgir.</p><span class="badge orange">Timing</span></div>
+  </div>
+  <div class="callout"><b>Uso recomendado:</b> score ajuda a priorizar a fila e a nutrição. A passagem para oportunidade continua dependente dos critérios reais de qualificação e reunião.</div>
+</section>
+
+<section class="section" id="13g">
+  <div class="kicker">21 • Qualidade de dados</div>
+  <h2>O CRM só é confiável se o dado for auditável.</h2>
+  <div class="grid">
+    <div class="card"><div class="num">01</div><h3>Duplicidade</h3><p>Evitar múltiplos Leads para a mesma pessoa. Usar identidade e regras de deduplicação.</p></div>
+    <div class="card"><div class="num">02</div><h3>Origem</h3><p>UTMs e campos de atribuição precisam seguir padrão único e ser preservados.</p></div>
+    <div class="card"><div class="num">03</div><h3>Obrigatórios</h3><p>Obrigatoriedade deve existir apenas quando o dado tem função operacional ou analítica.</p></div>
+    <div class="card"><div class="num">04</div><h3>Auditoria</h3><p>Revisar registros sem owner, sem próxima ação, sem origem, com tarefas vencidas e com etapas incoerentes.</p></div>
+    <div class="card"><div class="num">05</div><h3>Histórico</h3><p>Não apagar contexto para “limpar” o CRM. Corrigir preservando rastreabilidade.</p></div>
+    <div class="card"><div class="num">06</div><h3>Fonte única</h3><p>Dashboard e relatório devem usar os mesmos eventos e definições de KPI.</p></div>
+  </div>
+</section>
+
+<section class="section" id="13h">
+  <div class="kicker">22 • Responsabilidades</div>
+  <h2>Quem pode decidir, configurar e executar?</h2>
+  <table class="matrix">
+    <tr><th>Responsabilidade</th><th>Marketing</th><th>Pré-Vendas/Vendas</th><th>Sales Ops / Gestão</th><th>TI</th></tr>
+    <tr><td>Definir processo comercial</td><td>Contribui</td><td>Contribui</td><td><strong>Governança</strong></td><td>Suporte técnico</td></tr>
+    <tr><td>Campos e regras de negócio</td><td>Solicita/usa</td><td>Solicita/usa</td><td><strong>Define</strong></td><td>Configura quando centralizado</td></tr>
+    <tr><td>Blueprint/Pipeline</td><td>Contribui</td><td>Usa</td><td><strong>Governa</strong></td><td>Implementa conforme modelo</td></tr>
+    <tr><td>Automação</td><td>Requisitos</td><td>Requisitos</td><td><strong>Desenha</strong></td><td>Implementa/apoia</td></tr>
+    <tr><td>Qualidade dos dados</td><td>Origem/campanha</td><td>Execução</td><td><strong>Audita</strong></td><td>Integridade técnica</td></tr>
+    <tr><td>Dashboards/KPIs</td><td>Marketing</td><td>Comercial</td><td><strong>Fonte e definição</strong></td><td>Dados/integrações</td></tr>
+  </table>
+  <div class="callout"><b>Princípio:</b> TI não deve precisar decidir sozinho a regra comercial; a regra nasce da operação e é traduzida tecnicamente com TI quando necessário.</div>
+</section>
+
+<section class="section" id="13i">
+  <div class="kicker">23 • Rotina de gestão</div>
+  <h2>O playbook precisa virar ritual.</h2>
+  <div class="timeline">
+    <div class="time">Diário</div><div class="event"><h3>Fila operacional</h3><p>Leads novos, primeira abordagem, tarefas vencidas, leads sem próxima ação e reuniões do dia.</p></div>
+    <div class="time">Semanal</div><div class="event"><h3>Pipeline review</h3><p>Conversão por etapa, aging, no-show, perdas, cadências e gargalos.</p></div>
+    <div class="time">Mensal</div><div class="event"><h3>Revenue review</h3><p>Origem → lead → qualificação → reunião → venda, CAC quando disponível e recuperação.</p></div>
+    <div class="time">Contínuo</div><div class="event"><h3>Governança</h3><p>Revisar campos, automações, exceções e qualidade de dados com base em evidências da operação.</p></div>
+  </div>
+</section>
+
+<section class="section" id="13j">
+  <div class="kicker">24 • Backlog de implementação</div>
+  <h2>Da documentação para o CRM configurado.</h2>
+  <table class="matrix">
+    <tr><th>Prioridade</th><th>Entrega</th><th>Critério de pronto</th></tr>
+    <tr><td><span class="badge red">P0</span></td><td>Mapeamento de campos e etapas</td><td>Todos os estados, owners e obrigatórios definidos.</td></tr>
+    <tr><td><span class="badge red">P0</span></td><td>Origem + UTMs</td><td>First Touch/Latest Touch e campanha com padrão único.</td></tr>
+    <tr><td><span class="badge red">P0</span></td><td>Cadência de entrada</td><td>Lead novo recebe próxima ação automaticamente.</td></tr>
+    <tr><td><span class="badge orange">P1</span></td><td>Alertas e SLA</td><td>Tarefas vencidas e etapas paradas geram sinalização.</td></tr>
+    <tr><td><span class="badge orange">P1</span></td><td>Handoff</td><td>Reunião agendada cria Deal com contexto mínimo.</td></tr>
+    <tr><td><span class="badge orange">P1</span></td><td>Reativação</td><td>Contact + novo Deal, sem duplicidade.</td></tr>
+    <tr><td><span class="badge blue">P2</span></td><td>Lead Score</td><td>Critérios testados e priorização validada por dados.</td></tr>
+    <tr><td><span class="badge blue">P2</span></td><td>Dashboards</td><td>KPI com evento e fonte oficial definidos.</td></tr>
+    <tr><td><span class="badge green">P3</span></td><td>Otimização</td><td>Regras ajustadas com base em conversão e produtividade.</td></tr>
+  </table>
+</section>
+
+<section class="section">
+  <div class="kicker">25 • Definição de sucesso</div>
+  <h2>O objetivo não é colocar mais coisas no CRM.</h2>
+  <div class="hero-card">
+    <div class="label">Critério de sucesso</div>
+    <div class="big">É garantir que nenhum lead morra no funil enquanto ainda existir uma hipótese comercial a testar.</div>
+    <p style="color:#dbe7ff;font-size:17px">O CRM deve proteger a jornada, preservar o histórico, distribuir a qualificação no momento certo, disciplinar o follow-up e transformar a operação em uma fonte confiável de inteligência.</p>
+  </div>
+  <div class="quote">FOR DOCTOR — de cadastro para jornada. De tarefa para processo. De processo para receita previsível.</div>
+</section>
+
+<div class="footer"><span>ForDoctor • Playbook de CRM • V2 operacional</span><span>Blueprint • Cadência • Atribuição • Handoff • Governança • KPIs • SLA</span></div>
+</main>
+</body>
+</html>
